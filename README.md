@@ -116,3 +116,28 @@ This feature handles the secure processing of financial transactions for booking
 ### 7. Notification System 🔔
 
 Notifications are sent asynchronously for critical events, such as new booking requests, booking confirmations, payment failures, or review submissions. Leveraging **Celery** and **Redis**, this system ensures timely communication between Guests, Hosts, and the system without blocking the main application flow.
+
+# API Security 🔒
+
+Securing the backend APIs is non-negotiable for protecting user data, maintaining system integrity, and ensuring compliance. Our strategy relies on several key security measures implemented across the technology stack, particularly within **Django REST Framework** and **GraphQL**.
+
+---
+
+### Key Security Measures
+
+| Measure | Implementation Detail | Purpose |
+| :--- | :--- | :--- |
+| **Authentication** | **JWT (JSON Web Tokens)** or **OAuth2** | Ensures that all requests originate from a verified and logged-in user. Every request must carry a valid token, preventing unauthorized access to protected resources. |
+| **Authorization** | **Permissions Classes** (DRF/Django) | Restricts what an authenticated user is *allowed* to do. For example, a Guest can only view available properties, and a Host can only edit *their own* listings. |
+| **Rate Limiting** | **Redis** and **Django Middleware** | Limits the number of requests a user (identified by IP or API key/token) can make within a defined time frame. This mitigates **Denial-of-Service (DoS)** attacks and prevents API abuse (e.g., rapid attempts to guess passwords). |
+| **Input Validation** | **Django Forms/Serializers** | Strictly validates all incoming data (e.g., checking that prices are positive numbers, dates are correctly formatted, and string lengths are reasonable). This prevents common vulnerabilities like **SQL Injection** and **Cross-Site Scripting (XSS)**. |
+| **HTTPS/SSL** | **TLS Encryption** | Ensures all data transmitted between the client (browser/mobile app) and the server is encrypted. This prevents sensitive information (passwords, payment details) from being intercepted by attackers (**Man-in-the-Middle attacks**). |
+
+### Importance of Security by Project Area
+
+Security is crucial across the entire platform, but its importance is highlighted in specific areas:
+
+* **Protecting User Data:** Strong **Authentication** and **Authorization** are vital to prevent unauthorized access to user profiles, personal contact details, and booking history, maintaining user privacy and trust.
+* **Securing Payments:** The **Payments** API must be protected by **HTTPS/TLS** and strict **Authorization** to ensure that sensitive financial information is encrypted during transit and that only the authorized system components can initiate or query transaction status.
+* **Maintaining Data Integrity (Properties/Bookings):** Implementing robust **Authorization** (e.g., ensuring a Host can only modify their own properties) and **Input Validation** prevents malicious or accidental corruption of core business data, like prices, availability, and booking records.
+* **Preventing System Abuse:** **Rate Limiting** and strong authentication protect the API from brute-force attacks on login endpoints and excessive scraping of property listings, thus ensuring service availability and controlling infrastructure costs.
