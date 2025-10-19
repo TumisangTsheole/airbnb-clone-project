@@ -141,3 +141,26 @@ Security is crucial across the entire platform, but its importance is highlighte
 * **Securing Payments:** The **Payments** API must be protected by **HTTPS/TLS** and strict **Authorization** to ensure that sensitive financial information is encrypted during transit and that only the authorized system components can initiate or query transaction status.
 * **Maintaining Data Integrity (Properties/Bookings):** Implementing robust **Authorization** (e.g., ensuring a Host can only modify their own properties) and **Input Validation** prevents malicious or accidental corruption of core business data, like prices, availability, and booking records.
 * **Preventing System Abuse:** **Rate Limiting** and strong authentication protect the API from brute-force attacks on login endpoints and excessive scraping of property listings, thus ensuring service availability and controlling infrastructure costs.
+
+# CI/CD Pipeline 🚀
+
+### What is CI/CD?
+
+**CI/CD** stands for **Continuous Integration** and **Continuous Delivery/Deployment**. It's an automated methodology that introduces automation and continuous monitoring throughout the application lifecycle.
+
+* **Continuous Integration (CI):** Developers merge code changes frequently (e.g., several times a day) into a main branch. An automated build process then runs tests and static analysis to instantly detect and fix integration errors.
+* **Continuous Delivery/Deployment (CD):** After successful CI, the code is automatically prepared for release (Delivery) or automatically deployed (Deployment) to staging or production environments.
+
+### Importance to the Project
+
+The CI/CD pipeline is crucial for this project because it automates the process of testing and deploying our code, ensuring a **fast, reliable, and consistent release cycle**. This significantly reduces the risk of human error during deployment, allows for quick bug fixes, and ensures that features are delivered to users rapidly and reliably. It provides immediate feedback on the health and quality of every code change.
+
+### Tools for Implementation
+
+The pipeline integrates several tools from our technology stack:
+
+* **GitHub Actions / GitLab CI / Jenkins:** These are common choices for orchestrating the pipeline stages (e.g., triggering on a push, running checks). We will use one of these tools to define the automated workflow.
+* **Docker:** Used to build consistent, isolated containers for the application and its dependencies. The CI pipeline will build and tag new Docker images upon successful testing.
+* **Django Testing Framework:** Ensures that all unit and integration tests run automatically during the CI stage to validate code functionality.
+* **PostgreSQL / Redis (Test Instances):** Used in the CI environment to run integration tests against actual database and caching services.
+
