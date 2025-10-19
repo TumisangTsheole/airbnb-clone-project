@@ -83,3 +83,36 @@ The entities are connected using **Foreign Keys (FKs)** to enforce data integrit
 
 * **Bookings** $\text{1:M}$ **Reviews**: A completed **Booking** is required before a **Review** can be left.
     * *Mechanism:* The `booking_id` field in the **Reviews** table links to the `id` in the **Bookings** table.
+
+# Feature Breakdown 
+
+This project aims to replicate the core functionality of a property rental platform like Airbnb. The following main features are essential for a complete and functional system:
+
+
+### 1. User Authentication and Authorization 🔐
+
+This feature handles user registration, login, and secure session management. It ensures that users are correctly identified and assigned roles (Guest or Host), which dictates their permissions, such as the ability to list a property versus the ability to make a booking.
+
+### 2. Property Management (CRUD) 🏠
+
+Hosts can create, read, update, and delete (CRUD) their property listings through an intuitive interface. This allows hosts to manage property details like titles, descriptions, pricing, locations, and availability, ensuring that property data is always current and accurate for potential guests.
+
+### 3. Search and Filtering 🔎
+
+Guests can efficiently discover properties by searching based on location, dates, and applying filters such as price range, number of guests, and amenities. This core search mechanism is critical for enhancing the user experience and matching guests with suitable listings quickly.
+
+### 4. Booking System 🗓️
+
+This system allows guests to select a property, choose check-in and check-out dates, and submit a reservation request. It manages the booking lifecycle, including calculating the total cost, handling booking conflicts, and updating the property's availability.
+
+### 5. Review and Rating System ⭐
+
+Users can leave reviews and ratings for properties after a booking is complete, contributing to community trust. This feature provides social proof for hosts and helps future guests make informed decisions about where to stay.
+
+### 6. Payments Integration 💳
+
+This feature handles the secure processing of financial transactions for bookings, integrating with an external payment gateway (e.g., Stripe). It ensures that payments are accurately recorded, funds are securely transferred, and the booking is confirmed upon successful payment.
+
+### 7. Notification System 🔔
+
+Notifications are sent asynchronously for critical events, such as new booking requests, booking confirmations, payment failures, or review submissions. Leveraging **Celery** and **Redis**, this system ensures timely communication between Guests, Hosts, and the system without blocking the main application flow.
